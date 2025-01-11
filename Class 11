@@ -1,0 +1,32 @@
+int ldr=A0;
+int ldr_value;
+int y=13;
+int b=12;
+int r=11;
+
+void setup() {
+  pinMode(y, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(r, OUTPUT);
+  pinMode(ldr, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  ldr_value=analogRead(ldr);
+  Serial.println("LDR reading:");
+  Serial.println(ldr_value);
+  delay(1000);
+
+  if (ldr_value<2){
+    digitalWrite(y, 1);
+    digitalWrite(b, 0);
+    digitalWrite(r, 0);
+  }
+
+  else{
+    digitalWrite(y, 0);
+    digitalWrite(b, 0);
+    digitalWrite(r, 0);
+  }
+}
