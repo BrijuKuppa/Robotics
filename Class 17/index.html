@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Firebase Webpage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <h2>Firebase Data</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 bg-warning">
+                <img class="w-50" src="measuring-tape.png" alt="distance_img">
+                <p style="font-size: 25px;" id="randomvalue"></p>
+                <p style="font-size: 25px;" id="randomvalue2"></p>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAqKAUNxZffSsCGKERzV4r_iC9io6u4zBs",
+            authDomain: "robotics-class-17.firebaseapp.com",
+            databaseURL: "https://robotics-class-17-default-rtdb.firebaseio.com",
+            projectId: "robotics-class-17",
+            storageBucket: "robotics-class-17.firebasestorage.app",
+            messagingSenderId: "467995175420",
+            appId: "1:467995175420:web:27d20350741dcbd01daa79",
+            measurementId: "G-V7B9NPNX85"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the database
+        var database = firebase.database();
+        
+        // Getting reference to 'Sensor/' data
+        var dataRef1 = database.ref('Distance/');
+        var dataRef2=database.ref('Duration/');
+
+        dataRef2.on('value', function(snapshot2){
+            var pir=snapshot2.val();
+            document.getElementById("randomvalue2").innerHTML=`Distance: ${pir}`;
+        })
+
+        dataRef1.on('value', function(snapshot) {
+            var humi = snapshot.val();
+            document.getElementById('randomvalue').innerHTML = `Duration: ${humi}`;
+        }, function(error) {
+            console.error("Error reading data:", error);
+        });
+    </script>
+
+    
+</body>
+</html>
